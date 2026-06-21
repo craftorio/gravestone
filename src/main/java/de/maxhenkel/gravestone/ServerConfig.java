@@ -24,6 +24,8 @@ public class ServerConfig extends ConfigBase {
     public final ForgeConfigSpec.BooleanValue sneakPickup;
     public final ForgeConfigSpec.BooleanValue breakPickup;
     public final ForgeConfigSpec.BooleanValue strictPlacement;
+    public final ForgeConfigSpec.BooleanValue infectiousCompatibility;
+    public final ForgeConfigSpec.IntValue infectiousLevelThreshold;
 
     public List<Tag<Block>> replaceableBlocks = new ArrayList<>();
 
@@ -59,6 +61,12 @@ public class ServerConfig extends ConfigBase {
                         "Note that this might cause issues with other mods or multiblock structures - This option is not recommended and subject to change"
                 )
                 .define("strict_placement", false);
+        infectiousCompatibility = builder
+                .comment("If true and Infectious mod is loaded, skip grave placement when infection level exceeds the threshold")
+                .define("infectious_compatibility", true);
+        infectiousLevelThreshold = builder
+                .comment("Infectious infection amplifier must be greater than this value to skip grave placement")
+                .defineInRange("infectious_level_threshold", 0, -1, 255);
     }
 
     @Override

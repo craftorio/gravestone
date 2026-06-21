@@ -3,6 +3,7 @@ package de.maxhenkel.gravestone.events;
 import de.maxhenkel.corelib.death.Death;
 import de.maxhenkel.corelib.death.PlayerDeathEvent;
 import de.maxhenkel.gravestone.GraveUtils;
+import de.maxhenkel.gravestone.InfectiousCompatibility;
 import de.maxhenkel.gravestone.Main;
 import de.maxhenkel.gravestone.blocks.GraveStoneBlock;
 import de.maxhenkel.gravestone.items.ObituaryItem;
@@ -33,6 +34,11 @@ public class DeathEvents {
         Level world = player.level();
 
         if (keepInventory(player)) {
+            return;
+        }
+
+        if (InfectiousCompatibility.shouldSkipGrave(player)) {
+            Main.LOGGER.info("Skipping grave for '{}' because Infectious infection level exceeds threshold", death.getPlayerName());
             return;
         }
 

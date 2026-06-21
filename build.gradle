@@ -9,6 +9,8 @@ plugins {
 
 apply from: "https://raw.githubusercontent.com/henkelmax/mod-gradle-scripts/${mod_gradle_script_version}/mod.gradle"
 
+version = "${mod_version}-${craftorio_version}"
+
 dependencies {
     shadow fg.deobf("de.maxhenkel.corelib:corelib:${minecraft_version}-${corelib_version}:api")
     runtimeOnly fg.deobf("de.maxhenkel.corelib:corelib:${minecraft_version}-${corelib_version}")
@@ -19,7 +21,7 @@ dependencies {
 
 processResources {
     filesMatching('**/*.toml') {
-        expand 'mod_version': mod_version,
+        expand 'mod_version': version,
                 'forge_dependency': forge_dependency,
                 'minecraft_version': minecraft_version
     }
